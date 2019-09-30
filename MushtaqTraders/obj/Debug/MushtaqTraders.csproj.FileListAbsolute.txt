@@ -72,7 +72,7 @@ C:\Users\israr\Documents\Visual Studio 2015\Projects\MushtaqTraders\MushtaqTrade
 C:\Users\israr\Documents\Visual Studio 2015\Projects\MushtaqTraders\MushtaqTraders\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\Users\israr\Documents\Visual Studio 2015\Projects\MushtaqTraders\MushtaqTraders\obj\Debug\MushtaqTraders.dll
 C:\Users\israr\Documents\Visual Studio 2015\Projects\MushtaqTraders\MushtaqTraders\obj\Debug\MushtaqTraders.pdb
-C:\Users\israr\Documents\Visual Studio 2015\Projects\MushtaqTraders\MushtaqTraders\obj\Debug\MushtaqTraders.csprojResolveAssemblyReference.cache
 C:\Users\israr\Documents\Visual Studio 2015\Projects\MushtaqTraders\MushtaqTraders\obj\Debug\MushtaqTraders.Migrations.init.resources
 C:\Users\israr\Documents\Visual Studio 2015\Projects\MushtaqTraders\MushtaqTraders\obj\Debug\MushtaqTraders.csproj.GenerateResource.Cache
 C:\Users\israr\Documents\Visual Studio 2015\Projects\MushtaqTraders\MushtaqTraders\obj\Debug\MushtaqTraders.Migrations.mmresolved.resources
+C:\Users\israr\Documents\Visual Studio 2015\Projects\MushtaqTraders\MushtaqTraders\obj\Debug\MushtaqTraders.csprojResolveAssemblyReference.cache

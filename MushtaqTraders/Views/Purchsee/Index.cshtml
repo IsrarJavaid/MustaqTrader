@@ -1,0 +1,14 @@
+﻿@model MushtaqTraders.Models.DomainObjects.Product
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+<div>
+    @if (ViewBag.ProuctList != null)
+    {
+        
+        @Html.DropDownListFor(m => m.Id, ViewBag.ProuctList as SelectList, "Select Product", new { @class = "form-control" })
+    }
+</div>

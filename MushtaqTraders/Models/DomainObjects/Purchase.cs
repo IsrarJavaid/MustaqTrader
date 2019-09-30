@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace MushtaqTraders.Models.DomainObjects
 {
@@ -15,6 +16,7 @@ namespace MushtaqTraders.Models.DomainObjects
         public DateTime Date { get; set; }
         public string Description { get; set; }
 
+      
         public Supplier Supplier { get; set; }
     }
 }

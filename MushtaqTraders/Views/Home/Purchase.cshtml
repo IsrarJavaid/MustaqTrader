@@ -1,0 +1,122 @@
+﻿
+@{
+    ViewBag.Title = "Purchase";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+ 
+}
+
+<h2>Purchase</h2>
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+
+
+@using (Html.BeginForm("Purchase", "Home", FormMethod.Post))
+{
+    <div >
+        Existing <input type="checkbox"  id="checkboxID"  />
+       
+    </div>
+    <br />
+    <div>
+        Product Name: <input type="text"  id="pnID"  />
+    </div>
+    <br />
+    <div>
+        <select id="productId" name="productId" class="form-control"></select>
+    </div>
+    
+    <br />
+    <div>
+        Purchase Price: <input type="text" name="PurchasePrice" id="PurchasePriceID" value="" />
+    </div>
+    <br />
+    <div>
+        <select id="supplierId" name="supplierId" class="form-control"></select>
+    </div>
+    <br />
+    <div>
+       <input type="button" name="Save" id="buttonID" value="Save" onclick="saveData()"/>
+    </div>
+
+
+}
+
+<script>
+  
+   
+
+
+    getsuppliers();
+    getproducts();
+   
+
+
+    function getsuppliers() {
+        $.getJSON("http://localhost:58970/api/data/getSuppliers", function (resp) {
+            var data = JSON.parse(resp);
+            $.each(data, (index, item) => {
+                $('#supplierId').append(
+                        '<option value="' + item.Id + '">' + item.Name + '</option>'
+                    );
+            });
+        });
+    };
+
+    function getproducts() {
+        $.getJSON("http://localhost:58970/api/data/getproducts", function (resp) {
+            var data = JSON.parse(resp);
+            $.each(data, (index, item) => {
+                $('#productId').append(
+                        '<option value="' + item.Id + '">' + item.Name + '</option>'
+                    );
+            });
+        });
+    }
+
+    var checkbox = document.querySelector("#checkboxID");
+    var input = document.querySelector("#pnID");
+    var dropdowninput = document.querySelector("#productId");
+
+    var toogleInput = function (e) {
+        input.disabled = e.target.checked;
+        dropdowninput.disabled = !e.target.checked;
+    };
+
+    toogleInput({ target: checkbox });
+    checkbox.addEventListener("change", toogleInput);
+
+    
+   
+
+    $("#buttonID").click(function () {
+        var isExisting = $('#checkboxID').prop('checked');
+        var productName =  $('#pnID').val();
+        var productId =  $('#productId').val();;
+        var purchaseprice =  $('#PurchasePriceID').val();;
+        var supplierId =  $('#supplierId').val();;
+
+        var body = {
+            // Model property: variables of values
+            'isExisting': isExisting,
+            'productName': productName,
+            'productId': productId,
+            'purchaseprice': purchaseprice,
+            'supplierId': supplierId
+        }
+        $.ajax({
+            url: 'http://localhost:58970/api/addPurchase',
+            type: 'POST',
+            dataType: 'json',
+            data: body,
+            success: function (data) {
+                alert(data);
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                alert('Error in Operation');
+            }
+        });
+    });
+
+</script>
+
