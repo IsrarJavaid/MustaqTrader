@@ -6,9 +6,10 @@
  
 }
 
-<h2>Purchase</h2>
+<div class="title"><h2>Purchase</h2></div>
 <script src="~/Scripts/jquery-1.10.2.js"></script>
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<link href="~/CSS/Purchase.css" rel="stylesheet" />
 
 
 @using (Html.BeginForm("Purchase", "Home", FormMethod.Post))
@@ -23,18 +24,31 @@
     </div>
     <br />
     <div>
-        <select id="productId" name="productId" class="form-control"></select>
+       Product Name: <select id="productId" name="productId" class="form-control">
+                         <option value="" disabled selected hidden>---Please Choose Product---</option>         
+                    </select>
     </div>
     
     <br />
     <div>
-        Purchase Price: <input type="text" name="PurchasePrice" id="PurchasePriceID" value="" />
+       Supplier Name: <select id="supplierId" name="supplierId" class="form-control">
+                          <option value="" disabled selected hidden>---Please Choose Supplier---</option>         
+                      </select>
     </div>
     <br />
     <div>
-        <select id="supplierId" name="supplierId" class="form-control"></select>
+        Purchase Price: <input type="text" name="PurchasePrice" id="PurchasePriceID" value="" /> RS
     </div>
     <br />
+    <div>
+        Quantity: <input type="text" name="Quantity" id="QuantityId" value="" />
+    </div>
+    <br />
+    <div>
+        Total Bill: <input type="text" name="TotalBill" id="TBId" value="" /> RS
+    </div>
+    <br />
+   
     <div>
        <input type="button" name="Save" id="buttonID" value="Save" onclick="saveData()"/>
     </div>
@@ -49,7 +63,7 @@
 
     getsuppliers();
     getproducts();
-   
+    TotalBill();
 
 
     function getsuppliers() {
@@ -74,6 +88,15 @@
         });
     }
 
+    function TotalBill(){
+        $('#PurchasePriceID').keyup(calculate);
+        $('#QuantityId').keyup(calculate);
+    };
+    function calculate(e)
+    {
+        $('#TBId').val($('#PurchasePriceID').val() * $('#QuantityId').val());
+    }
+
     var checkbox = document.querySelector("#checkboxID");
     var input = document.querySelector("#pnID");
     var dropdowninput = document.querySelector("#productId");
@@ -92,9 +115,11 @@
     $("#buttonID").click(function () {
         var isExisting = $('#checkboxID').prop('checked');
         var productName =  $('#pnID').val();
-        var productId =  $('#productId').val();;
-        var purchaseprice =  $('#PurchasePriceID').val();;
-        var supplierId =  $('#supplierId').val();;
+        var productId =  $('#productId').val();
+        var purchaseprice =  $('#PurchasePriceID').val();
+        var supplierId = $('#supplierId').val();
+        var QuantityId = $('#QuantityId').val();
+        var TBId = $('#TBId').val();
 
         var body = {
             // Model property: variables of values
@@ -102,13 +127,15 @@
             'productName': productName,
             'productId': productId,
             'purchaseprice': purchaseprice,
-            'supplierId': supplierId
+            'supplierId': supplierId,
+            'QuantityId': QuantityId,
+            'TBId': TBId
         }
         $.ajax({
-            url: 'http://localhost:58970/api/addPurchase',
+            url: 'http://localhost:58970/api/data/addPurchase',
             type: 'POST',
             dataType: 'json',
-            data: body,
+            data: JSON.stringify(body),
             success: function (data) {
                 alert(data);
             },

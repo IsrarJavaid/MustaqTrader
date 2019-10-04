@@ -5,15 +5,12 @@ using System.Web;
 
 namespace MushtaqTraders.Models.RequestObjects
 {
-    public class AddPurchaseModel
+    public class AddSaleModel
     {
-        public bool isExisting { get; set; }
         public string productName { get; set; }
         public int productId { get; set; }
-        public float purchaseprice { get; set; }
-        public int supplierId { get; set; }
         public int QuantityId { get; set; }
-        public decimal TBId { get; set; }
-
+        public float SellingPrice { get; set; }
+        public decimal TotalBill { get; set; }
     }
 }

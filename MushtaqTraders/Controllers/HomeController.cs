@@ -14,33 +14,24 @@ namespace MushtaqTraders.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            ViewBag.ProuctList = new SelectList(GetProductList(), "Id", "Name");
-            ViewBag.SupplierList = new SelectList(GetSupplierList(), "Id", "Name");
+           
 
             return View();
         }
         public ActionResult Purchase()
         {
-            ViewBag.ProuctList = new SelectList(GetProductList(), "Id", "Name");
-            ViewBag.SupplierList = new SelectList(GetSupplierList(), "Id", "Name");
+           
             return View();
         }
         public void submitForm()
         {
 
         }
-        public List<Supplier> GetSupplierList()
-        {
-            List<Supplier> Suppliers = db.Suppliers.ToList();
-            return Suppliers;
-
-        }
-        public List<Product> GetProductList()
+        public ActionResult sale()
         {
 
-            List<Product> Products = db.products.ToList();
-            return Products;
-
+            return View();
         }
+
     }
 }

@@ -1,0 +1,101 @@
+﻿
+@{
+    ViewBag.Title = "sale";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="title"><h2>Sale Product</h2></div>
+
+
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<link href="~/CSS/Sale.css" rel="stylesheet" />
+
+@using (Html.BeginForm("Sale", "Home", FormMethod.Post))
+{
+   
+    
+    <div class="form-group">
+      Product Name:  <select id="productId" name="productId" class="form-control" >
+                         <option value="" disabled selected hidden>---Please Choose Product---</option>                        
+                    </select>
+    </div>
+
+    <br />
+   
+    <div class="form-group" >
+        Selling Price: <input type="text"  name="SellingPrice" id="SellingPriceID" value="" /> RS
+    </div>
+    <br />
+    <div class="form-group">
+       
+            Quantity: <input type="text" name="Quantity" id="QuantityId" value="" />
+           
+</div>
+    <br />
+    <div class="form-group">
+        Total Bill: <input type="text" name="TotalBill" id="TBId" value="" /> RS
+    </div>
+    <br />
+
+    <div>
+        <input type="button" name="Save" id="buttonID" value="Save" onclick="saveData()"  />
+    </div>
+
+
+}
+ 
+
+<script>
+    getproducts();
+    TotalBill();
+
+
+    function getproducts() {
+        $.getJSON("http://localhost:58970/api/data/getproducts", function (resp) {
+            var data = JSON.parse(resp);
+            $.each(data, (index, item) => {
+                $('#productId').append(
+                        '<option value="' + item.Id + '">' + item.Name + '</option>'
+                    );
+            });
+        });
+    }
+
+    function TotalBill() {
+        $('#SellingPriceID').keyup(calculate);
+        $('#QuantityId').keyup(calculate);
+    };
+    function calculate(e) {
+        $('#TBId').val($('#SellingPriceID').val() * $('#QuantityId').val());
+    }
+
+    $("#buttonID").click(function () {
+
+        var productId = $('#productId').val();
+        var SellingPrice = $('#SellingPriceID').val();
+        var QuantityId = $('#QuantityId').val();
+        var TBId = $('#TBId').val();
+
+        var body = {
+            // Model property: variables of values(id in form)
+             
+            'productId': productId,
+            'SellingPrice': SellingPrice,
+            'QuantityId': QuantityId,
+            'TotalBill': TBId
+        }
+        $.ajax({
+            url: 'http://localhost:58970/api/data/addSale',
+            type: 'POST',
+            dataType: 'json',
+            data: JSON.stringify(body),
+            success: function (data) {
+                alert(data);
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                alert('Error in Operation');
+            }
+        });
+    });
+
+</script>
