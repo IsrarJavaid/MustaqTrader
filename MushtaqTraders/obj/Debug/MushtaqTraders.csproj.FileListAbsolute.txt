@@ -76,3 +76,4 @@ C:\Users\israr\Documents\Visual Studio 2015\Projects\MushtaqTraders\MushtaqTrade
 C:\Users\israr\Documents\Visual Studio 2015\Projects\MushtaqTraders\MushtaqTraders\obj\Debug\MushtaqTraders.csproj.GenerateResource.Cache
 C:\Users\israr\Documents\Visual Studio 2015\Projects\MushtaqTraders\MushtaqTraders\obj\Debug\MushtaqTraders.Migrations.mmresolved.resources
 C:\Users\israr\Documents\Visual Studio 2015\Projects\MushtaqTraders\MushtaqTraders\obj\Debug\MushtaqTraders.csprojResolveAssemblyReference.cache
+C:\Users\israr\Documents\Visual Studio 2015\Projects\MushtaqTraders\MushtaqTraders\obj\Debug\MushtaqTraders.Migrations.td.resources

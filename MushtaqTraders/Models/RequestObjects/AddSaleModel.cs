@@ -7,6 +7,7 @@ namespace MushtaqTraders.Models.RequestObjects
 {
     public class AddSaleModel
     {
+        public int categoryId { get; set; }
         public string productName { get; set; }
         public int productId { get; set; }
         public int QuantityId { get; set; }

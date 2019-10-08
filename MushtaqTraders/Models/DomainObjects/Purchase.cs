@@ -10,8 +10,7 @@ namespace MushtaqTraders.Models.DomainObjects
     public class Purchase
     {
         [Key]
-        public int Id { get; set; }
-        public int Quantity { get; set; }
+        public int Id { get; set; } 
         public decimal TotalBill { get; set; }
         public DateTime Date { get; set; }
         public string Description { get; set; }

@@ -21,6 +21,11 @@ namespace MushtaqTraders.Controllers
         {
             return JsonConvert.SerializeObject(_db.Suppliers.ToList());
         }
+        [HttpGet]
+        public string getCategory()
+        {
+            return JsonConvert.SerializeObject(_db.Categories.ToList());
+        }
 
         [HttpGet]
         public string getproducts()
@@ -38,18 +43,20 @@ namespace MushtaqTraders.Controllers
                 {
                     Date = DateTime.Now,
                     Description = "Purchased on 30 day credit",
-                    Quantity = obj.QuantityId,
                     Supplier = _db.Suppliers.Where(x => x.Id == obj.supplierId).FirstOrDefault(),
                     TotalBill = obj.TBId,
+                   
+
                 };
                 _db.Purchases.Add(p);
                 _db.SaveChanges();
                 PurchaseProduct pp = new PurchaseProduct()
                 {
-                    ProductId = obj.productId,
+                    ProductId = (int)obj.productId,
                     PurchasingPrice = obj.purchaseprice,
-                    PurchaseId = _db.Purchases.ToList().LastOrDefault().Id,
                     Quantity = obj.QuantityId,
+                    PurchaseId = _db.Purchases.ToList().LastOrDefault().Id,
+                    
                 };
                 _db.PurchaseProducts.Add(pp);
                 var purchasedProduct = _db.products.Where(x => x.Id == obj.productId).FirstOrDefault();
@@ -59,28 +66,37 @@ namespace MushtaqTraders.Controllers
             }
             else
             {
+                //insert
                 Product prod = new Product() {
-                    Id = obj.productId,
                     Name = obj.productName,
                     Description = "New item ",
                     Quantity = obj.QuantityId,
-                    
                     
                 };
                 _db.products.Add(prod);
                 _db.SaveChanges();
 
+
+                Purchase p = new Purchase()
+                {
+                    Date = DateTime.Now,                   
+                    Supplier = _db.Suppliers.Where(x => x.Id == obj.supplierId).FirstOrDefault(),
+                    TotalBill = obj.TBId,
+
+
+                };
+                _db.Purchases.Add(p);
+                _db.SaveChanges();
+
                 PurchaseProduct pp = new PurchaseProduct()
                 {
-                    ProductId = obj.productId,
+                    //Update
+                    ProductId = _db.products.ToList().LastOrDefault().Id,
                     PurchasingPrice = obj.purchaseprice,
                     PurchaseId = _db.Purchases.ToList().LastOrDefault().Id,
                     Quantity = obj.QuantityId,
                 };
                 _db.PurchaseProducts.Add(pp);
-                var purchasedProduct = _db.products.Where(x => x.Id == obj.productId).FirstOrDefault();
-                purchasedProduct.Quantity += obj.QuantityId;
-
                 _db.SaveChanges();
                 //1- add product
                 //2- add in purchase product table
@@ -94,12 +110,7 @@ namespace MushtaqTraders.Controllers
             var responseBody = Request.Content.ReadAsStringAsync();
             var obj = JsonConvert.DeserializeObject<AddSaleModel>(responseBody.Result);
 
-            if (obj.productId == null)
-            {
-                return "Select Product";
-            }
-            else
-            {
+         
                 Sale s = new Sale() {
                     Date = DateTime.Now,
                     TotalBill = obj.TotalBill,
@@ -121,7 +132,7 @@ namespace MushtaqTraders.Controllers
 
                 _db.SaveChanges();
 
-            }
+            
 
             return "Sale Successfully Done!!!";
         }

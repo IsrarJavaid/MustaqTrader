@@ -12,8 +12,14 @@
 
 @using (Html.BeginForm("Sale", "Home", FormMethod.Post))
 {
-   
-    
+    <div class="form-group">
+        Category Name:  <select id="categoryId" name="categoryId" class="form-control">
+            <option value="" disabled selected hidden>---Please Choose Category---</option>
+        </select>
+    </div>
+
+    <br />
+
     <div class="form-group">
       Product Name:  <select id="productId" name="productId" class="form-control" >
                          <option value="" disabled selected hidden>---Please Choose Product---</option>                        
@@ -48,6 +54,7 @@
 <script>
     getproducts();
     TotalBill();
+    getCategory();
 
 
     function getproducts() {
@@ -55,6 +62,16 @@
             var data = JSON.parse(resp);
             $.each(data, (index, item) => {
                 $('#productId').append(
+                        '<option value="' + item.Id + '">' + item.Name + '</option>'
+                    );
+            });
+        });
+    }
+    function getCategory() {
+        $.getJSON("http://localhost:58970/api/data/getCategory", function (resp) {
+            var data = JSON.parse(resp);
+            $.each(data, (index, item) => {
+                $('#categoryId').append(
                         '<option value="' + item.Id + '">' + item.Name + '</option>'
                     );
             });
@@ -70,7 +87,7 @@
     }
 
     $("#buttonID").click(function () {
-
+        var categoryId = $('#categoryId').val();
         var productId = $('#productId').val();
         var SellingPrice = $('#SellingPriceID').val();
         var QuantityId = $('#QuantityId').val();
@@ -78,7 +95,7 @@
 
         var body = {
             // Model property: variables of values(id in form)
-             
+            'categoryId':categoryId,
             'productId': productId,
             'SellingPrice': SellingPrice,
             'QuantityId': QuantityId,

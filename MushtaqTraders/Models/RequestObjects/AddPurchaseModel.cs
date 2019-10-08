@@ -7,9 +7,10 @@ namespace MushtaqTraders.Models.RequestObjects
 {
     public class AddPurchaseModel
     {
+        public int categoryId { get; set; }
         public bool isExisting { get; set; }
         public string productName { get; set; }
-        public int productId { get; set; }
+        public int? productId { get; set; }
         public float purchaseprice { get; set; }
         public int supplierId { get; set; }
         public int QuantityId { get; set; }
