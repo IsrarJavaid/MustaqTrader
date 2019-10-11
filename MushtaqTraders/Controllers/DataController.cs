@@ -82,7 +82,7 @@ namespace MushtaqTraders.Controllers
                     Date = DateTime.Now,                   
                     Supplier = _db.Suppliers.Where(x => x.Id == obj.supplierId).FirstOrDefault(),
                     TotalBill = obj.TBId,
-
+                    Description="item purchased"
 
                 };
                 _db.Purchases.Add(p);
@@ -95,6 +95,7 @@ namespace MushtaqTraders.Controllers
                     PurchasingPrice = obj.purchaseprice,
                     PurchaseId = _db.Purchases.ToList().LastOrDefault().Id,
                     Quantity = obj.QuantityId,
+                    
                 };
                 _db.PurchaseProducts.Add(pp);
                 _db.SaveChanges();
